@@ -6,6 +6,7 @@ If running python 2.7 do the following:
 If running python 3 do the following:
 >pip install -r requirements2.txt and python financial_advice.py
 
+If installing dependencies on your local system throws an error, look below for a detailed implementation along with a screenshot of final output.
 
 ## Financial Advice Application using Machine Learning Algorithms
 The following is a detailed implementation of the application. It gives you a stepwise implementation of the code and the API's plugged in. I used the Quandl Financial Dataset API and the Yahoo Financial Dataset API to aid me in getting the fundamental data. I tried adding more API's related to getting the Financial data but it was just a overlap of data. Yahoo Finance and Quandl gave me the right amount of data to build my model.
