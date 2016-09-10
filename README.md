@@ -1,10 +1,10 @@
 ## How to run the program
 
 If running python 2.7 do the following:
->pip install -r requirements.txt and python financial_advice.py
+>pip install -r requirements1.txt and python financial_advice.py
 
 If running python 3 do the following:
->pip3 install -r requirements.txt and python financial_advice.py
+>pip install -r requirements2.txt and python financial_advice.py
 
 
 ## Financial Advice Application using Machine Learning Algorithms
