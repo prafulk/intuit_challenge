@@ -113,24 +113,14 @@ def Build_Data_Set():
 
 
 def Analysis():
-
     test_size = 1
-
     invest_amount = 10000
-    
     total_invests = 0
-
-    
     if_market = 0
     if_strat = 0
-
-
-
-    
     X, y, Z = Build_Data_Set()
     print(len(X))
 
-    
     clf = svm.SVC(kernel="linear", C= 1.0)
     clf.fit(X[:-test_size],y[:-test_size])
 
@@ -249,6 +239,52 @@ def Analysis():
     #print(invest_list)
     return invest_list
 
+def screener(stock):
+    try:
+        #print 'doing',stock
+        sourceCode = urllib2.urlopen('http://finance.yahoo.com/q/ks?s='+stock).read()
+        pbr = sourceCode.split('Price/Book (mrq):</td><td class="yfnc_tabledata1">')[1].split('</td>')[0]
+        #print 'price to book ratio:',stock,pbr
+
+        if float(pbr) < 1:
+            #print 'price to book ratio:',stock,pbr
+
+            PEG5 = sourceCode.split('PEG Ratio (5 yr expected)<font size="-1"><sup>1</sup></font>:</td><td class="yfnc_tabledata1">')[1].split('</td>')[0]
+            if 0 < float(PEG5) < 2:
+                #print 'PEG forward 5 years',PEG5
+                
+                
+                DE = sourceCode.split('Total Debt/Equity (mrq):</td><td class="yfnc_tabledata1">')[1].split('</td>')[0]
+                #print 'Debt to Equity:',DE
+                #if 0 < float(DE) < 2:
+                PE12 = sourceCode.split('Trailing P/E (ttm, intraday):</td><td class="yfnc_tabledata1">')[1].split('</td>')[0]
+                #print 'Trailing PE (12mo):',PE12
+                if float(PE12) < 15:
+                    # Your own SCREENED array.... 
+                    #evenBetter.append(stock)
+                    
+                    print '______________________________________'
+                    print ''
+                    print stock,'meets requirements'
+                    print 'price to book:',pbr
+                    print 'PEG forward 5 years',PEG5
+                    print 'Trailing PE (12mo):',PE12
+                    print 'Debt to Equity:',DE
+                    print '______________________________________'
+
+                    if showCharts.lower() == 'y':
+
+                        try:
+                            graphData(stock,25,50)
+
+                        except Exception, e:
+                            print 'failed the main quandl loop for reason of',str(e)
+
+
+            
+    except Exception,e:
+        #print 'failed in the main loop',str(e)
+        pass
 
 final_list = []
 
